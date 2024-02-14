@@ -39,7 +39,7 @@ class BaseModel:
 elif k == "updated_at":
 new_dict[k] = self.__str_update_date
 else:
-            new_dict[k] = v
+new_dict[k] = v
         dict_rep = {__class__.__name__ : new_dict}
         
         return dict_rep
