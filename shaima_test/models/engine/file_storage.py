@@ -2,6 +2,7 @@
 """ file storage to store all the date"""
 import json
 
+
 class FileStorage():
     """class stotage to represent data to json file
 objects: to store class name.id 
@@ -17,8 +18,7 @@ file_path: to hold the name of json file
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        new = obj.to_dict()
-        self.__objects[f"{obj.id}"] = new
+        self.__objects[f"{obj.id}"] = obj.to_dict()
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
