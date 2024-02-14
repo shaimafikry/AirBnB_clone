@@ -19,3 +19,4 @@ class testbaseMOdel(unittest.TestCase):
         self.assertNotEqual(ins1.created_at, ins1.updated_at)
         self.assertIsInstance(ins1.id, str)
         self.assertIsInstance(ins1, BaseModel)
+        self.assertNotEqual(ins2.__str__, ins1.__str__)
