@@ -18,7 +18,7 @@ class BaseModel:
         """
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
-        str_creat_date = self.created_at.isoformat()
+        self.__str_creat_date = self.created_at.isoformat()
 
     def __str__(self):
         """string representation of an object"""
@@ -27,7 +27,7 @@ class BaseModel:
     def save(self):
         """updates the public instance attribute updated_at with the current datetime"""
         self.updated_at = datetime.now()
-        str_update_date = self.updated_at.isoformat()
+        self.__str_update_date = self.updated_at.isoformat()
 
     def to_dict(self):
         """returns a dictionary containing all keys/values of __dict__ of the instance
@@ -35,7 +35,10 @@ class BaseModel:
         new_dict = {}
         for k, v in self.__dict__.items():
             if k == "self.created_at":
-                new_dict[k] = str_creat_date
+                new_dict[k] = self.__str_creat_date
+elif k == "updated_at":
+new_dict[k] = self.__str_update_date
+else:
             new_dict[k] = v
         dict_rep = {__class__.__name__ : new_dict}
         
