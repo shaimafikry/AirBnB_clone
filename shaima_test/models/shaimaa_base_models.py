@@ -18,6 +18,8 @@ class BaseModel:
         """
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        self.__str_update_date = self.updated_at.isoformat()
         self.__str_creat_date = self.created_at.isoformat()
 
     def __str__(self):
@@ -43,6 +45,3 @@ class BaseModel:
         dict_rep = {__class__.__name__ : new_dict}
         
         return dict_rep
-        
-        
-        

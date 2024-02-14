@@ -4,7 +4,7 @@
 
 import uuid
 from datetime import datetime
-
+from models import storage
 
 class BaseModel:
     """main class for this projecta
@@ -21,6 +21,9 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            self._serialized = self.to_dict()
+            storage.new(self)
+
         else:
             self.id = kwargs.get('id')
             self.created_at = datetime.fromisoformat(kwargs.get('created_at'))
@@ -37,6 +40,7 @@ class BaseModel:
         """updates the public instance attribute
         updated_at with the current datetime"""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary containing all
