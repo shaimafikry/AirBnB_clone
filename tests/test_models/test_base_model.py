@@ -16,9 +16,17 @@ class testbaseMOdel(unittest.TestCase):
         ins2 = BaseModel()
         ins1.save()
         ins1_str = str(ins1)
+    
         self.assertNotEqual(ins1.id, ins2.id)
+
         self.assertNotEqual(ins1.created_at, ins1.updated_at)
+
         self.assertIsInstance(ins1.id, str)
+
         self.assertIsInstance(ins1, BaseModel)
+
         self.assertNotEqual(ins1.save(), ins1.updated_at)
+
         self.assertNotEqual(ins1_str, ins1.__str__())
+
+        self.assertNotEqual(ins1.to_dict, ins2.to_dict)
