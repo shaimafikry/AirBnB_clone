@@ -1,41 +1,44 @@
 #!/usr/bin/python3
-""" file storage to store all the date"""
+"""File storage module"""
+
+from models.base_model import BaseModel
 import json
+import os
 
-
-class FileStorage():
-    """class stotage to represent data to json file
-objects: to store class name.id 
-file_path: to hold the name of json file
-    """
+class FileStorage:
+    """class Filestorage: serialize and deserialize"""
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """returns the dictionary __objects"""
-        return self.__objects
+        """doc"""
+        return FileStorage.__objects
 
     def new(self, obj):
-        """sets in __objects the obj with key <obj class name>.id"""
-        new_item = {obj.__class__.__name__.id: obj}
-        FileStorage.__objects.update(new_item)
+        """doc"""
+        x = obj.__class__.__name__
+        id = obj.__dict__.get("id")
+        FileStorage.__objects[f"{x}.{id}"] = obj
 
     def save(self):
-        """serializes __objects to the JSON file (path: __file_path)
-        to hold objects after turn them too dictionary"""
-        j_dict ={}
-        for k, v in self.__objects.items():
-            j_dict[k] = v.to_dict()
-        with open (FileStorage.__file_path, "w", encoding="utf-8") as f:
-            json.dump(j_dict, f)
+        """doc"""
+        dict = {}
+        for key, obj in FileStorage.__objects.items():
+            dict[key] = obj.to_dict()
 
+        with open(FileStorage.__file_path, "w") as file:
+            my_string = json.dumps(dict)
+            file.write(my_string)
+    
     def reload(self):
-        """ deserializes the JSON file to _objects (only if the JSON file (_file_path) exists otherwise, do nothing. If the file doesn’t exist, no exception should be raised"""
-        try:
-            with open (FileStorage.__file_path, "r", encoding="utf-8") as f:
-               objects = json.load(f)
-               for k, v in objects.items():
-                   FileStorage.__objects[k] = self(**v)
-        except FileNotFoundError:
-            pass
+        """doc"""
+        file_path = FileStorage.__file_path
+        if os.path.exists(file_path):
+            with open(file_path, "r") as file:
+                my_string = file.read()
+                if my_string:
+                    FileStorage.__objects = json.loads(my_string)
+                    for key, dict in FileStorage.__objects.items():
+                        ins_from_dict = BaseModel(**dict)
+                        FileStorage.__objects[key] = ins_from_dict
