@@ -7,7 +7,7 @@ class HBNBCommand(cmd.Cmd):
     """my console class, entry point"""
 
     intro = "welcome to my console interrpreter"
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_help(self, line):
         """help command"""
