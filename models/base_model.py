@@ -48,7 +48,7 @@ class BaseModel:
         keys/values of __dict__ of the instance
         """
         new_dict = {}
-        new_dict = self.__dict__
+        new_dict = self.__dict__.copy()
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
         return (new_dict)
