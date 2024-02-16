@@ -6,7 +6,6 @@ import cmd
 class HBNBCommand(cmd.Cmd):
     """my console class, entry point"""
 
-    intro = "welcome to my console interrpreter"
     prompt = "(hbnb) "
 
     def do_help(self, line):
@@ -22,7 +21,6 @@ class HBNBCommand(cmd.Cmd):
 
     def help_quit(self):
         """help quit command to display ..."""
-    
         print("Quit command to exit the program\n")
 
     def help_EOF(self):
