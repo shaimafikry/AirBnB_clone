@@ -45,7 +45,7 @@ class FileStorage:
                     FileStorage.__objects = json.loads(my_string)
                     for key, dict in FileStorage.__objects.items():
                         #class_name returned as string
-                        class_name = dict.pop("__class__")
+                        class_name = dict["__class__"]
                         #update class_name to point to class_name exactly
                         class_name = my_classes[class_name]
                         ins_from_dict = class_name(**dict)
