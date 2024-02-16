@@ -11,17 +11,23 @@ class HBNBCommand(cmd.Cmd):
 
     def do_help(self, line):
         """help command"""
-        if line == "quit":
-            print("Quit command to exit the program\n")
-        else:
-            print("\nDocumented commands (type help <topic>):\n" +\
-            "========================================\n" +\
-            "EOF  help  quit\n")
+
+        print("\nDocumented commands (type help <topic>):\n" +\
+        "========================================\n" +\
+        "EOF  help  quit\n")
 
     def do_EOF(self, line):
         """Exit programm"""
         return True
 
+    def help_quit(self):
+        """help quit command to display ..."""
+    
+        print("Quit command to exit the program\n")
+
+    def help_EOF(self):
+        """help Exit command to display ..."""
+        print("Exit command to exit the program\n")
 
     def emptyline(self):
         """skip, continue"""
