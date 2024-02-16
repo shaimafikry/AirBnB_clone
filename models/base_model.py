@@ -29,7 +29,8 @@ class BaseModel:
             self.updated_at = datetime.fromisoformat(kwargs.get('updated_at'))
             for key, value in kwargs.items():
                 if key not in self.__dict__.keys():
-                    self.__dict__[key] = value
+                    if key != "__class__":
+                        self.__dict__[key] = value
 
     def __str__(self):
         """string representation of an object"""
@@ -51,3 +52,13 @@ class BaseModel:
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
         return (new_dict)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """returns an instance with all attributes already set"""
+        """creat an instant like r1 = rectangle(10,,,etc)"""
+        dummy = cls(**dictionary)
+        """validate it's attributes by update"""
+        for key, content in dictionary.items():
+                setattr(dummy, key, content)
+        return dummy

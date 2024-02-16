@@ -4,7 +4,7 @@
 from models.base_model import BaseModel
 import json
 import os
-
+from datetime import datetime
 class FileStorage:
     """class Filestorage: serialize and deserialize"""
 
@@ -38,7 +38,12 @@ class FileStorage:
             with open(file_path, "r") as file:
                 my_string = file.read()
                 if my_string:
+                    my_classes = {"BaseModel" : BaseModel}
                     FileStorage.__objects = json.loads(my_string)
                     for key, dict in FileStorage.__objects.items():
-                        ins_from_dict = BaseModel(**dict)
+                        #class_name returned as string
+                        class_name = dict.pop("__class__")
+                        #update class_name to point to class_name exactly
+                        class_name = my_classes[class_name]
+                        ins_from_dict = class_name(**dict)
                         FileStorage.__objects[key] = ins_from_dict
