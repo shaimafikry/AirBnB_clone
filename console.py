@@ -19,8 +19,9 @@ class HBNBCommand(cmd.Cmd):
             "EOF  help  quit\n")
 
     def do_EOF(self, line):
-        print()
-        return True
+        """Exit programm"""
+        return self.do_quit(line)
+
 
     def emptyline(self):
         """skip, continue"""
