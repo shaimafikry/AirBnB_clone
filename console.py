@@ -12,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
     def do_help(self, line):
         """help command"""
         if line == "quit":
-            print("Quit command to exit the program")
+            print("Quit command to exit the program\n")
         else:
             print("\nDocumented commands (type help <topic>):\n" +\
             "========================================\n" +\
