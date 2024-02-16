@@ -25,7 +25,10 @@ class FileStorage:
         """doc"""
         dict = {}
         for key, obj in FileStorage.__objects.items():
-            dict[key] = obj.to_dict()
+            to_dict = obj.to_dict()
+            name = {"__class__": obj.__class__.__name__}
+            to_dict.update(name)
+            dict[key] = to_dict
 
         with open(FileStorage.__file_path, "w") as file:
             my_string = json.dumps(dict)
