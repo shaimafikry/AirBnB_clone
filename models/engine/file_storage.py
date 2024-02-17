@@ -2,6 +2,7 @@
 """File storage module"""
 
 from models.base_model import BaseModel
+from models.user import User
 import json
 import os
 from datetime import datetime
@@ -41,7 +42,7 @@ class FileStorage:
             with open(file_path, "r") as file:
                 my_string = file.read()
                 if my_string:
-                    my_classes = {"BaseModel" : BaseModel}
+                    my_classes = {"BaseModel" : BaseModel, "User": User}
                     FileStorage.__objects = json.loads(my_string)
                     for key, dict in FileStorage.__objects.items():
                         #class_name returned as string

@@ -35,7 +35,7 @@ class BaseModel:
     def __str__(self):
         """string representation of an object"""
         self.__dict__.pop('__class__', None)
-        return f"[{__class__.__name__}] ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """updates the public instance attribute

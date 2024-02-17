@@ -4,11 +4,12 @@
 import cmd
 from models.base_model import BaseModel
 import models
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """my console class, entry point"""
 
-    classes = {"BaseModel": BaseModel}
+    classes = {"BaseModel": BaseModel, "User" : User}
     def do_create(self, line=None):
         """creat an instance from class"""
         if not line:
