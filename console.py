@@ -105,6 +105,7 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line=None):
         """excute dynamic methods"""
         line = line.replace('(', ' ').replace(')', ' ').replace('.', ' ')
+        line = line.replace(',', ' ')
         words = line.split()
         print(words)
         my_dict = models.storage.all()
@@ -130,11 +131,10 @@ class HBNBCommand(cmd.Cmd):
                 self.do_show(line)
             elif words[1] == "destroy":
                 self.do_destroy(line)
-            elif words[1] == "update":
-                attributes = words[2].split(',')
-                line = (str(words[0]) + " " +
-                        str(attributes[0]) + " " + str(attributes[1])
-                        + " " + str(attributes[2]))
+        elif len(words) == 5:
+            if words[1] == "update":
+                line = (str(words[0]) + " " + str(words[2]) +
+                        str(words[3]) + " " + str(words[4]))
                 self.do_update(line)
             
         else:
