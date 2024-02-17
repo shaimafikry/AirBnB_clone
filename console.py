@@ -131,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
             elif words[1] == "destroy":
                 self.do_destroy(line)
             elif words[1] == "update":
-                attributes = words[2].split(', ')
+                attributes = words[2].split(',')
                 line = (str(words[0]) + " " +
                         str(attributes[0]) + " " + str(attributes[1])
                         + " " + str(attributes[2]))
