@@ -7,7 +7,7 @@ import unittest
 from models.city import City
 
 
-class testbaseMOdel(unittest.TestCase):
+class testcity(unittest.TestCase):
     """class for test basemodel methods"""
 
     def test_instances(self):
@@ -31,7 +31,3 @@ class testbaseMOdel(unittest.TestCase):
 
         like_ins1 = City(**str1)
         self.assertEqual(like_ins1.name, ins1.name)
-
-
-if __name__ == "__main__":
-    unittest.main()

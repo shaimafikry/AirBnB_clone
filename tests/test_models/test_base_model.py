@@ -7,7 +7,7 @@ import unittest
 from models.base_model import BaseModel
 
 
-class testbaseMOdel(unittest.TestCase):
+class testBaseModel(unittest.TestCase):
     """class for test basemodel methods"""
 
     def test_instances(self):
