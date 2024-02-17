@@ -16,7 +16,7 @@ class testUser(unittest.TestCase):
         inst1 = User()
         inst1.email = "ahmedmostafa@alx.com"
         inst1.first_name = "ahmed"
-        User.password = "123456"
+        inst1.password = "123456"
         inst1.last_name = "mostafa"
         FileStorage.new(self, inst1)
         FileStorage.save(self)
