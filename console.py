@@ -132,9 +132,10 @@ class HBNBCommand(cmd.Cmd):
             elif words[1] == "destroy":
                 self.do_destroy(line)
         elif len(words) == 5:
+            line = ""
             if words[1] == "update":
-                line = (str(words[0]) + " " + str(words[2]) +
-                        str(words[3]) + " " + str(words[4]))
+                line = (words[0] + " " + words[2] +
+                        words[3] + " " + words[4])
                 self.do_update(line)
             
         else:
