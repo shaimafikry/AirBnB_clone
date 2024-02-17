@@ -9,7 +9,7 @@ class HBNBCommand(cmd.Cmd):
     """my console class, entry point"""
 
     classes = {"BaseModel": BaseModel}
-    def do_creat(self, line=None):
+    def do_create(self, line=None):
         """creat an instance from class"""
         if not line:
             print("** class name missing **")
@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
             print(my_dict[f"{words[0]}.{words[1]}"])
          
     def do_destroy(self, line=None):
-        """creat an instance from class"""
+        """destroy an instance from class"""
         words = line.split()
         my_dict = models.storage.all()
         if not line:
@@ -69,7 +69,6 @@ class HBNBCommand(cmd.Cmd):
                     if value.__class__.__name__ == line:
                         print(value)
 
-    
     def do_update(self, line=None):
         """creat an instance from class"""
         words = line.split()
