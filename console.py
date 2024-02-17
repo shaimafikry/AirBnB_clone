@@ -107,7 +107,6 @@ class HBNBCommand(cmd.Cmd):
         line = line.replace('(', ' ').replace(')', ' ').replace('.', ' ')
         line = line.replace(',', ' ')
         words = line.split()
-        print(words)
         my_dict = models.storage.all()
 
         if len(words) == 2:
@@ -126,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
         elif len(words) == 3:
             line = ""
             line = words[0] + " " + words[2]
-            print(line)
             if words[1] == "show":
                 self.do_show(line)
             elif words[1] == "destroy":
