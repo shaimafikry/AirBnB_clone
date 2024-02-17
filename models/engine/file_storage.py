@@ -14,7 +14,7 @@ from datetime import datetime
 class FileStorage:
     """class Filestorage: serialize and deserialize"""
 
-    __file_path = "file.json"
+    __file_path = "Airbnb.json"
     __objects = {}
 
     def all(self):
@@ -32,8 +32,6 @@ class FileStorage:
         dict = {}
         for key, obj in FileStorage.__objects.items():
             to_dict = obj.to_dict()
-            name = {"__class__": obj.__class__.__name__}
-            to_dict.update(name)
             dict[key] = to_dict
 
         with open(FileStorage.__file_path, "w") as file:

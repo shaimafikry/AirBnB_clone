@@ -29,6 +29,7 @@ class BaseModel:
             self.updated_at = datetime.fromisoformat(kwargs.get('updated_at'))
             for key, value in kwargs.items():
                 if key not in self.__dict__.keys():
+                    if key != "__class__":
                         self.__dict__[key] = value
             
 
@@ -49,6 +50,7 @@ class BaseModel:
         """
         new_dict = {}
         new_dict = self.__dict__.copy()
+        new_dict["__class__"] =  __class__.__name__
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
         return (new_dict)
