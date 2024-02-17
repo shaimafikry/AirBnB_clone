@@ -19,7 +19,7 @@ class FileStorage:
         except FileNotFoundError:
             pass
         return self.__objects
-    
+
     def new(self, obj):
         self.__objects[f"{BaseModel.id}"] = obj
 

@@ -4,7 +4,8 @@
 from models.base_model import BaseModel
 import unittest
 
-class TestBaseModel (unittest.TestCase):
+
+class TestBaseModel(unittest.TestCase):
     def test_init(self):
         """test initiation"""
         pass

@@ -31,7 +31,7 @@ class testbaseMOdel(unittest.TestCase):
 
         str1 = ins1.to_dict()
         str2 = ins2.to_dict()
-        self.assertEqual(str1['__class__'], str2['__class__'])
+        self.assertEqual(str1["__class__"], str2["__class__"])
 
         like_ins1 = BaseModel(**str1)
         self.assertEqual(like_ins1.id, ins1.id)

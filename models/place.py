@@ -5,6 +5,7 @@
 from models.base_model import BaseModel
 import models
 
+
 class Place(BaseModel):
     """my Place class"""
 

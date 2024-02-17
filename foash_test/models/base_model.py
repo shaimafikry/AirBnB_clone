@@ -10,6 +10,7 @@ from models import storage
 class BaseModel:
     """main class for this projecta
     """
+
     def __init__(self, *args, **kwargs):
         """constructor
 
@@ -24,9 +25,9 @@ class BaseModel:
             self.updated_at = datetime.now()
             storage.new(self)
         else:
-            self.id = kwargs.get('id')
-            self.created_at = datetime.fromisoformat(kwargs.get('created_at'))
-            self.updated_at = datetime.fromisoformat(kwargs.get('updated_at'))
+            self.id = kwargs.get("id")
+            self.created_at = datetime.fromisoformat(kwargs.get("created_at"))
+            self.updated_at = datetime.fromisoformat(kwargs.get("updated_at"))
             for key, value in kwargs.items():
                 if key not in self.__dict__.keys():
                     self.__dict__[key] = value
@@ -50,4 +51,4 @@ class BaseModel:
         new_dict["__class__"] = __class__.__name__
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
-        return (new_dict)
+        return new_dict
