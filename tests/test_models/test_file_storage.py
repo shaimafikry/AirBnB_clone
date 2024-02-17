@@ -9,7 +9,7 @@ from models.engine.file_storage import FileStorage
 import os
 
 
-class testbaseMOdel(unittest.TestCase):
+class testFileStorage(unittest.TestCase):
     """class for test basemodel methods"""
 
     def test_all(self):
