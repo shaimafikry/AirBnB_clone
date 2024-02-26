@@ -11,19 +11,13 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 
-
 class HBNBCommand(cmd.Cmd):
     """my console class, entry point"""
 
-    classes = {
-        "BaseModel": BaseModel,
-        "User": User,
-        "City": City,
-        "State": State,
-        "Amenity": Amenity,
-        "Review": Review,
-        "Place": Place,
-    }
+    classes = {"BaseModel" : BaseModel, "User": User,
+                    "City" : City, "State" : State,
+                    "Amenity" : Amenity, "Review" : Review,
+                    "Place" : Place}
 
     def do_create(self, line=None):
         """creat an instance from class"""
@@ -35,7 +29,8 @@ class HBNBCommand(cmd.Cmd):
             class_name = HBNBCommand.classes[line]
             ins = class_name()
             class_name.save(ins)
-            print(ins.id)
+            print (ins.id)
+
 
     def do_show(self, line=None):
         """creat an instance from class"""
@@ -47,11 +42,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(words) == 1:
             print("** instance id missing **")
-        elif f"{words[0]}.{words[1]}" not in my_dict.keys():
+        elif (f"{words[0]}.{words[1]}" not in
+           my_dict.keys()):
             print("** no instance found **")
-        else:
+        else: 
             print(my_dict[f"{words[0]}.{words[1]}"])
-
+         
     def do_destroy(self, line=None):
         """destroy an instance from class"""
         words = line.split()
@@ -62,9 +58,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(words) == 1:
             print("** instance id missing **")
-        elif f"{words[0]}.{words[1]}" not in my_dict.keys():
+        elif (f"{words[0]}.{words[1]}" not in
+           my_dict.keys()):
             print("** no instance found **")
-        else:
+        else: 
             del my_dict[f"{words[0]}.{words[1]}"]
             models.storage.save()
 
@@ -92,27 +89,66 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(words) == 1:
             print("** instance id missing **")
-        elif f"{words[0]}.{words[1]}" not in my_dict.keys():
+        elif (f"{words[0]}.{words[1]}" not in
+           my_dict.keys()):
             print("** no instance found **")
         elif len(words) == 2:
             print("** attribute name missing **")
         elif len(words) == 3:
             print("** value missing **")
-        else:
+        else: 
             my_ins = my_dict[f"{words[0]}.{words[1]}"]
-            my_ins.__dict__[words[2]] = words[3]
-            models.storage.save()
+            my_ins.__dict__[words[2]] = words[3] 
+            models.storage.save()    
+
+
+    def default(self, line=None):
+        """excute dynamic methods"""
+        line = line.replace('(', ' ').replace(')', ' ').replace('.', ' ')
+        line = line.replace(',', ' ')
+        words = line.split()
+        my_dict = models.storage.all()
+
+        if len(words) == 2:
+            if words[1] == "all":
+                print("all")
+                self.do_all(words[0])
+            elif words[1] == "count":
+                counter = 0
+                if words[0] not in HBNBCommand.classes.keys():
+                    print("** class doesn't exist **")
+                else:
+                    for value in my_dict.values():
+                        if value.__class__.__name__ == words[0]:
+                            counter += 1
+                    print(counter)
+        elif len(words) == 3:
+            line = ""
+            line = words[0] + " " + words[2]
+            if words[1] == "show":
+                self.do_show(line)
+            elif words[1] == "destroy":
+                self.do_destroy(line)
+        elif len(words) == 5:
+            line = ""
+            if words[1] == "update":
+                line = (words[0] + " " + words[2] +
+                        words[3] + " " + words[4])
+                self.do_update(line)
+            
+        else:
+                print("*** Unknown syntax: " + line)
+        
+
 
     prompt = "(hbnb) "
 
     def do_help(self, line):
         """help command"""
 
-        print(
-            "\nDocumented commands (type help <topic>):\n"
-            + "========================================\n"
-            + "EOF  help  quit\n"
-        )
+        print("\nDocumented commands (type help <topic>):\n" +\
+        "========================================\n" +\
+        "EOF  help  quit\n")
 
     def do_EOF(self, line):
         """Exit programm"""
@@ -125,7 +161,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, line):
         """Quit command to exit the program"""
         return True
-
-
-if __name__ == "__main__":
+    
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
+        
