@@ -1,4 +1,4 @@
-"html css
+<h>html css<h>
 * html stands for : hypertext  markup language
 * css stands for : Cascading style sheets
 * Those are the front end of a website project which client 
@@ -24,6 +24,3 @@
 		<a> to have links herf inside
 		<h> : headline
 		<h1>: more headlines
-
- 
-"
