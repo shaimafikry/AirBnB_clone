@@ -6,6 +6,8 @@
 	* html that holds data and organize the sections
 	* css that styling the page
 * we have basic "Tags" of html such as:
+'''
+
 <!DOCTYPE html> : it's more like an information to tell the 
 				browser which version of html this page written in.
 <html>: holds everything inside, acts like the parent tag!
@@ -24,3 +26,4 @@
 		<a> to have links herf inside
 		<h> : headline
 		<h1>: more headlines
+'''
