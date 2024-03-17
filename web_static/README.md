@@ -1,4 +1,6 @@
-<h>html css<h>
+<h>html css</h>
+<h1>html css</h1>
+<h1>:html css
 * html stands for : hypertext  markup language
 * css stands for : Cascading style sheets
 * Those are the front end of a website project which client 
