@@ -6,7 +6,7 @@
 	* html that holds data and organize the sections
 	* css that styling the page
 * we have basic "Tags" of html such as:
-'''
+''' html
 
 <!DOCTYPE html> : it's more like an information to tell the 
 				browser which version of html this page written in.
