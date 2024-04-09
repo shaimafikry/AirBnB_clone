@@ -6,10 +6,5 @@ header{
 	border-bottom :1px #CCCCCC;
 	display: flex;
 	align-items: center;
-	justify-content: center;
-}
-.header img
-{
-	margin-left: 20px;
-
+	padding-left:20px;
 }
