@@ -144,13 +144,6 @@ class HBNBCommand(cmd.Cmd):
 
         print("\nDocumented commands (type help <topic>):\n" +
               "========================================\n" +
-              "*create <class name> =>\tto create a class\n" +
-              "*show <class name > <class id> =>\tto show data about class\n" +
-              "*destroy <class name id> =>\tto destory data in class \n" +
-              "*all =>\tto show all classes instances\n" +
-              "*all <class name> =>\tto chow specific class instances \n" +
-              "*update <class name id attr value> =>\tto update a class\n" +
-              "*^z or ^d =>\tto end the console and exit the prgramm\n" +
               "========================================\n" +
               "EOF  help  quit\n")
 
