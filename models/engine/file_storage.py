@@ -1,66 +1,53 @@
 #!/usr/bin/python3
 """File storage module"""
-
+from json import dumps, loads, dump
+from os import path
 from models.base_model import BaseModel
-from models.user import User
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-from models.state import State
-import json
-import os
-from datetime import datetime
 
 
 class FileStorage:
     """class Filestorage: serialize and deserialize"""
-
-    __file_path = "Airbnb.json"
+    _file_path = 'file.json'
     __objects = {}
 
     def all(self):
-        """doc"""
+        """returns the dictionary __objects"""
         return FileStorage.__objects
 
     def new(self, obj):
-        """doc"""
-        x = obj.__class__.__name__
-        id = obj.__dict__.get("id")
-        FileStorage.__objects[f"{x}.{id}"] = obj
+        """ sets in __objects the obj with key <obj class name>.id"""
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        FileStorage.__objects[key] = obj
 
     def save(self):
-        """doc"""
-        dict = {}
-        for key, obj in FileStorage.__objects.items():
-            to_dict = obj.to_dict()
-            dict[key] = to_dict
+        """serializes __objects to the JSON file (path: __file_path)"""
+        new_dict = {}
+        for key, value in FileStorage.__objects.items():
+            # """each object has its methods, and to_dict is one of them"""
+            # """at most it inherit from basemodel class"""
+            new_dict[key] = value.to_dict()
 
-        with open(FileStorage.__file_path, "w") as file:
-            my_string = json.dumps(dict)
+        with open(f'{FileStorage._file_path}', 'w') as file:
+            my_string = dumps(new_dict)
             file.write(my_string)
 
     def reload(self):
-        """doc"""
-        file_path = FileStorage.__file_path
-        if os.path.exists(file_path):
-            with open(file_path, "r") as file:
+        """deserializes the JSON file to __objects
+        (only if the JSON file (__file_path) exists; otherwise, do nothing."""
+        if path.exists(FileStorage._file_path):
+            with open(FileStorage._file_path, 'r') as file:
+                classes = {
+                    "BaseModel": BaseModel
+                }
+
+                # """we need to convert dict.values which represent
+                #  a dictonary that represent an object"""
+                # """we need to restore that object from this dictionary"""
                 my_string = file.read()
                 if my_string:
-                    my_classes = {
-                        "BaseModel": BaseModel,
-                        "User": User,
-                        "City": City,
-                        "State": State,
-                        "Amenity": Amenity,
-                        "Review": Review,
-                        "Place": Place,
-                    }
-                    FileStorage.__objects = json.loads(my_string)
-                    for key, dict in FileStorage.__objects.items():
-                        # class_name returned as string
-                        class_name = dict["__class__"]
-                        # update class_name to point to class_name exactly
-                        class_name = my_classes[class_name]
-                        ins_from_dict = class_name(**dict)
-                        FileStorage.__objects[key] = ins_from_dict
+                    my_dict = loads(my_string)
+                    for cls_id, obj_dict in my_dict.items():
+                        class_name = obj_dict.get('__class__')
+                        org_class = classes[class_name]
+                        my_instance = org_class(**obj_dict)
+                        FileStorage.__objects[cls_id] = my_instance

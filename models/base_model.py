@@ -30,6 +30,8 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            from models import storage
+            storage.new(self)
 
     def __str__(self):
         """string represntation of the class"""
@@ -38,13 +40,16 @@ class BaseModel:
     def save(self):
         """update the object date"""
         self.updated_at = datetime.now()
+        from models import storage
+        storage.save()
 
     def to_dict(self):
         """return dictionary represntation of my object"""
-        self.__dict__['__class__'] = self.__class__.__name__
-        self.__dict__['created_at'] = self.created_at.isoformat()
-        self.__dict__['updated_at'] = self.updated_at.isoformat()
-        return self.__dict__
+        new_dict = self.__dict__.copy()
+        new_dict['__class__'] = self.__class__.__name__
+        new_dict['created_at'] = self.created_at.isoformat()
+        new_dict['updated_at'] = self.updated_at.isoformat()
+        return new_dict
 
 # print(BaseModel.created_at.isoformat())
 # print(BaseModel.__dict__)
