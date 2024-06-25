@@ -12,16 +12,15 @@ from models.review import Review
 from models.state import State
 
 
-
 class HBNBCommand(cmd.Cmd):
     """the entry point of the command interpreter:"""
-    prompt  = "(hbnb)"
+    prompt = "(hbnb)"
 
     def do_EOF(self, line):
         """ctrl + d > to exit the programm"""
         print()
         return True
-    
+
     def do_quit(self, line):
         """Quit command to exit the program"""
         return True
