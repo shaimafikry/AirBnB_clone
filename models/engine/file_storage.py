@@ -4,6 +4,12 @@ from json import dumps, loads, dump
 from os import path
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+
 
 class FileStorage:
     """class Filestorage: serialize and deserialize"""
@@ -37,7 +43,9 @@ class FileStorage:
         if path.exists(FileStorage._file_path):
             with open(FileStorage._file_path, 'r') as file:
                 classes = {
-                    "BaseModel": BaseModel, "User": User
+                    "BaseModel": BaseModel, "User": User,
+                    "Place": Place, "State": State, "City": City,
+                    " Amenity": Amenity, "Review": Review
                 }
 
                 # """we need to convert dict.values which represent
