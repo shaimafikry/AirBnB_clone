@@ -3,7 +3,7 @@
 from json import dumps, loads, dump
 from os import path
 from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage:
     """class Filestorage: serialize and deserialize"""
@@ -37,7 +37,7 @@ class FileStorage:
         if path.exists(FileStorage._file_path):
             with open(FileStorage._file_path, 'r') as file:
                 classes = {
-                    "BaseModel": BaseModel
+                    "BaseModel": BaseModel, "User": User
                 }
 
                 # """we need to convert dict.values which represent
