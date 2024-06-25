@@ -12,9 +12,115 @@ from models.review import Review
 from models.state import State
 
 
+my_classes = {
+        'BaseModel': BaseModel, 'User': User, 'City': City,
+        'Amenity': Amenity, 'Place': Place, "Review": Review, "State": State
+        }
+
+
 class HBNBCommand(cmd.Cmd):
     """the entry point of the command interpreter:"""
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
+
+    def do_create(self, line):
+        """ Creates a new instance Ex: $ create BaseModel"""
+        if line:
+            if line not in my_classes.keys():
+                print("** class doesn't exist **")
+            else:
+                class_name = my_classes[line]
+                insta = class_name()
+                print(insta.id)
+                models.storage.save()
+        else:
+            print("** class name missing **")
+
+    def do_show(self, line):
+        """  Prints the string representation of an instance
+        based on the class name and id.
+        Ex: $ show BaseModel 1234-1234-1234"""
+        if line:
+            words = line.split()
+            if words[0] not in my_classes.keys():
+                print("** class doesn't exist **")
+            else:
+                if len(words) == 1:
+                    print("** instance id missing **")
+                else:
+                    file_objs = models.storage.all()
+                    for i in file_objs.values():
+                        if words[1] == i.id:
+                            print(i)
+                            return
+                    print("** no instance found **")
+        else:
+            print("** class name missing **")
+
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id
+          (save the change into the JSON file).
+          Ex: $ destroy BaseModel 1234-1234-1234."""
+        if line:
+            words = line.split()
+            if words[0] not in my_classes.keys():
+                print("** class doesn't exist **")
+            else:
+                if len(words) == 1:
+                    print("** instance id missing **")
+                else:
+                    file_objs = models.storage.all()
+                    for i in file_objs.values():
+                        if words[1] == i.id:
+                            key = f"{i.__class__.__name__}.{i.id}"
+                            del file_objs[key]
+                            models.storage.save()
+                            return
+                    print("** no instance found **")
+        else:
+            print("** class name missing **")
+
+    def do_all(self, line):
+        """all: Prints all string representation of all instances
+         based or not on the class name.
+         Ex: $ all BaseModel or $ all."""
+        file_objs = models.storage.all()
+        my_list = []
+        if line:
+            for i in file_objs.values():
+                if i.to_dict()['__class__'] == line:
+                    my_list.append(str(i))
+        else:
+            for i in file_objs.values():
+                my_list.append(str(i))
+
+        print(my_list)
+
+    def do_update(self, line):
+        """Ex: update <class name> <id> <attribute name> "<attribute value>"""
+        if line:
+            words = line.split()
+            if words[0] not in my_classes.keys():
+                print("** class doesn't exist **")
+            else:
+                if len(words) == 1:
+                    print("** instance id missing **")
+                else:
+                    file_objs = models.storage.all()
+                    for i in file_objs.values():
+                        if words[1] == i.id:
+                            if len(words) == 2:
+                                print("** attribute name missing **")
+                            elif len(words) == 3:
+                                print("** value missing **")
+                            else:
+                                words[2] = words[2].replace('"', "")
+                                words[3] = words[3].replace('"', "")
+                                i.__dict__[words[2]] = words[3]
+                                models.storage.save()
+                            return
+                    print("** no instance found **")
+        else:
+            print("** class name missing **")
 
     def do_EOF(self, line):
         """ctrl + d > to exit the programm"""
