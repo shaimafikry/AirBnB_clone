@@ -38,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """  Prints the string representation of an instance
         based on the class name and id.
-        Ex: $ show BaseModel 1234-1234-1234"""
+        Ex: $ show <BaseModel> 1234-1234-1234"""
         if line:
             words = line.split()
             if words[0] not in my_classes.keys():
@@ -85,15 +85,18 @@ class HBNBCommand(cmd.Cmd):
          Ex: $ all BaseModel or $ all."""
         file_objs = models.storage.all()
         my_list = []
+        count = 0
         if line:
             for i in file_objs.values():
                 if i.to_dict()['__class__'] == line:
                     my_list.append(str(i))
+                    count += 1
         else:
             for i in file_objs.values():
                 my_list.append(str(i))
 
         print(my_list)
+        return (count)
 
     def do_update(self, line):
         """Ex: update <class name> <id> <attribute name> "<attribute value>"""
@@ -121,6 +124,45 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
         else:
             print("** class name missing **")
+
+    def default(self, line=None):
+        """excute dynamic methods"""
+        line = line.replace('(', ' ').replace(')', ' ').replace('.', ' ')
+        line = line.replace(',', ' ')
+        words = line.split()
+        my_objs = models.storage.all()
+
+        if len(words) == 2:
+            if words[1] == "all":
+                print("all")
+                self.do_all(words[0])
+            elif words[1] == "count":
+                counter = 0
+                if words[0] not in my_classes.keys():
+                    print("** class doesn't exist **")
+                else:
+                    for value in my_objs.values():
+                        if value.__class__.__name__ == words[0]:
+                            counter += 1
+                    print(counter)
+        elif len(words) == 3:
+            line = ""
+            line = words[0] + " " + words[2]
+            if words[1] == "show":
+                self.do_show(line)
+            elif words[1] == "destroy":
+                self.do_destroy(line)
+        elif len(words) == 5:
+            line = ""
+            if words[1] == "update":
+                words[2] = words[2].replace('"', "")
+                words[3] = words[3].replace('"', "")
+                print(words)
+                line = (words[0] + " " + words[2] + " " +
+                        words[3] + " " + words[4])
+                self.do_update(line)
+        else:
+            print("*** Unknown syntax: " + line)
 
     def do_EOF(self, line):
         """ctrl + d > to exit the programm"""
